@@ -41,7 +41,7 @@ public class SettingsGUI {
                 "Yêu cầu đăng nhập khi vào server", settings.isLoginEnabled()));
 
         inventory.setItem(14, createToggleItem(Material.ZOMBIE_HEAD, "Mob Spawn Protection",
-                "Ngăn mob spawn trong bán kính 25 block", settings.isMobSpawnProtection()));
+                "Ngăn mob spawn trong bán kính 50 block", settings.isMobSpawnProtection()));
 
         inventory.setItem(15, createToggleItem(Material.ENDER_PEARL, "Auto Accept TPA",
                 "Tự động chấp nhận mọi yêu cầu TPA", settings.isAutoAcceptTpa()));
@@ -74,6 +74,8 @@ public class SettingsGUI {
     public void open() {
         player.openInventory(inventory);
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1.0f, 1.0f);
+        // Lưu instance để xử lý click
+        plugin.addOpenGUI(player.getUniqueId(), this);
     }
 
     public void handleClick(int slot) {
@@ -126,6 +128,6 @@ public class SettingsGUI {
         settingsManager.saveSettings(player.getUniqueId());
         player.sendMessage(ChatColor.GREEN + featureName + " đã được " + (newState ? "bật" : "tắt") + ".");
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-        initializeItems();
+        initializeItems(); // Cập nhật lại inventory
     }
 }
