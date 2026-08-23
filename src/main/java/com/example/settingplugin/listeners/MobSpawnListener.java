@@ -14,11 +14,17 @@ import java.util.Set;
 
 public class MobSpawnListener implements Listener {
     private final SettingPlugin plugin;
+    
+    // Chỉ bảo vệ các loại quái này
     private static final Set<EntityType> PROTECTED_MOBS = EnumSet.of(
-            EntityType.SKELETON, EntityType.SPIDER, EntityType.CREEPER, EntityType.ZOMBIE
+            EntityType.SKELETON,
+            EntityType.SPIDER,
+            EntityType.CREEPER,
+            EntityType.ZOMBIE
     );
-    private static final double PROTECT_RADIUS = 25.0;
-    private static final double CANCEL_RADIUS = 15.0;
+    
+    // Bán kính bảo vệ: 50 block
+    private static final double PROTECT_RADIUS = 50.0;
 
     public MobSpawnListener(SettingPlugin plugin) {
         this.plugin = plugin;
@@ -26,33 +32,35 @@ public class MobSpawnListener implements Listener {
 
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) return;
-        if (!PROTECTED_MOBS.contains(event.getEntityType())) return;
+        // Chỉ xử lý spawn tự nhiên (không ảnh hưởng spawner, command...)
+        if (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL) {
+            return;
+        }
+
+        // Nếu mob không thuộc danh sách cần chặn thì bỏ qua
+        if (!PROTECTED_MOBS.contains(event.getEntityType())) {
+            return;
+        }
 
         Location spawnLocation = event.getLocation();
 
+        // Duyệt qua tất cả người chơi online
         for (Player player : plugin.getServer().getOnlinePlayers()) {
             PlayerSettings settings = plugin.getSettingsManager().getSettings(player);
-            if (!settings.isMobSpawnProtection()) continue;
 
-            double distanceToSpawn = player.getLocation().distance(spawnLocation);
-            if (distanceToSpawn <= PROTECT_RADIUS) {
-                boolean hasNearbyNonProtected = false;
-                for (Player other : plugin.getServer().getOnlinePlayers()) {
-                    if (other.equals(player)) continue;
-                    PlayerSettings otherSettings = plugin.getSettingsManager().getSettings(other);
-                    if (!otherSettings.isMobSpawnProtection()) {
-                        if (player.getLocation().distance(other.getLocation()) <= CANCEL_RADIUS) {
-                            hasNearbyNonProtected = true;
-                            break;
-                        }
-                    }
-                }
-                if (!hasNearbyNonProtected) {
-                    event.setCancelled(true);
-                    return;
-                }
+            // Nếu người chơi này bật bảo vệ mob spawn
+            if (!settings.isMobSpawnProtection()) {
+                continue;
+            }
+
+            // Kiểm tra khoảng cách từ mob spawn đến người chơi
+            double distance = player.getLocation().distance(spawnLocation);
+            if (distance <= PROTECT_RADIUS) {
+                // Hủy sự kiện spawn mob
+                event.setCancelled(true);
+                return; // Chỉ cần một người chơi bật bảo vệ là đủ chặn
             }
         }
+        // Nếu không có ai bật bảo vệ trong bán kính, mob spawn bình thường
     }
 }
