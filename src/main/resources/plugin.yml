@@ -1,0 +1,22 @@
+name: SettingPlugin
+version: 1.0
+main: com.example.settingplugin.SettingPlugin
+api-version: 1.21
+author: YourName
+description: Personal settings menu with various features
+
+commands:
+  setting:
+    description: Open settings menu
+    usage: /setting
+    aliases: [settings]
+  register:
+    description: Register a password for login
+    usage: /register <password>
+  login:
+    description: Login with your password
+    usage: /login <password>
+  resetpassword:
+    description: Admin command to reset a player's password
+    usage: /resetpassword <player>
+    permission: settingplugin.admin
