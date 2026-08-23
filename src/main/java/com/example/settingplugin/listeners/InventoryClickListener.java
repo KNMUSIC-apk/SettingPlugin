@@ -18,13 +18,19 @@ public class InventoryClickListener implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
-        if (event.getView().getTitle().equals(ChatColor.BLUE + "Cài đặt cá nhân")) {
-            event.setCancelled(true);
-            if (event.getCurrentItem() == null) return;
-            int slot = event.getRawSlot();
-            if (slot >= 0 && slot < 27) {
-                new SettingsGUI(plugin, player).handleClick(slot);
-            }
+        if (!event.getView().getTitle().equals(ChatColor.BLUE + "Cài đặt cá nhân")) return;
+
+        // Chặn lấy item
+        event.setCancelled(true);
+        if (event.getCurrentItem() == null) return;
+
+        int slot = event.getRawSlot();
+        if (slot < 0 || slot >= 27) return;
+
+        // Lấy instance GUI đang mở của người chơi (không tạo mới)
+        SettingsGUI gui = plugin.getOpenGUI(player.getUniqueId());
+        if (gui != null) {
+            gui.handleClick(slot);
         }
     }
 }
