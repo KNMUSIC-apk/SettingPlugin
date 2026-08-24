@@ -99,11 +99,13 @@ public class SettingsGUI {
                 settings.setLoginEnabled(newState);
                 featureName = "Login System";
                 if (newState) {
-                    settings.setLoggedIn(false);
-                    player.sendMessage(ChatColor.YELLOW + "Bạn đã bật hệ thống đăng nhập. Hãy đăng ký bằng /register <mật khẩu> nếu chưa có.");
+                settings.setLoggedIn(false);
+                player.sendMessage(ChatColor.YELLOW + "Bạn đã bật hệ thống đăng nhập. Hãy đăng ký bằng /register <mật khẩu> nếu chưa có.");
+                LoginListener.applyBlindness(player);
                 } else {
-                    settings.setLoggedIn(true);
-                    player.sendMessage(ChatColor.YELLOW + "Bạn đã tắt hệ thống đăng nhập.");
+                settings.setLoggedIn(true);
+                player.sendMessage(ChatColor.YELLOW + "Bạn đã tắt hệ thống đăng nhập.");
+                LoginListener.removeBlindness(player);
                 }
                 break;
             case 14:
