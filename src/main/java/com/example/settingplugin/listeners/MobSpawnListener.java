@@ -4,9 +4,7 @@ import com.example.settingplugin.SettingPlugin;
 import com.example.settingplugin.PlayerSettings;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -100,10 +98,23 @@ public class MobSpawnListener implements Listener {
             // Clear các mob chỉ định trong bán kính 15 block quanh người chơi
             World world = player.getWorld();
             for (Entity entity : world.getEntities()) {
-                if (PROTECTED_MOBS.contains(entity.getType())) {
-                    if (entity.getLocation().distance(player.getLocation()) <= CLEAR_RADIUS) {
-                        entity.remove();
+                // Chỉ xét các entity thuộc loại mob cần clear
+                if (!PROTECTED_MOBS.contains(entity.getType())) continue;
+
+                // Kiểm tra nếu mob đã được đặt tên
+                if (entity.getCustomName() != null) continue;
+
+                // Kiểm tra nếu mob đang ngồi trên thuyền hoặc xe mỏ
+                if (entity.isInsideVehicle()) {
+                    Entity vehicle = entity.getVehicle();
+                    if (vehicle instanceof Boat || vehicle instanceof Minecart) {
+                        continue;
                     }
+                }
+
+                // Kiểm tra khoảng cách và xóa
+                if (entity.getLocation().distance(player.getLocation()) <= CLEAR_RADIUS) {
+                    entity.remove();
                 }
             }
         }
