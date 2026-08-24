@@ -11,6 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class LoginListener implements Listener {
     private final SettingPlugin plugin;
@@ -24,6 +26,7 @@ public class LoginListener implements Listener {
         Player player = event.getPlayer();
         plugin.getSettingsManager().onPlayerJoin(player);
         if (!plugin.getSettingsManager().getSettings(player).isLoggedIn()) {
+            applyBlindness(player);
             player.sendMessage("Bạn cần đăng nhập! Sử dụng /login <mật khẩu> hoặc /register <mật khẩu> nếu chưa có.");
         }
     }
@@ -112,5 +115,13 @@ public class LoginListener implements Listener {
     private boolean isFrozen(Player player) {
         PlayerSettings settings = plugin.getSettingsManager().getSettings(player);
         return settings.isLoginEnabled() && !settings.isLoggedIn();
+    }
+
+    public static void applyBlindness(Player player) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, PotionEffect.INFINITE_DURATION, 0, false, false));
+    }
+
+    public static void removeBlindness(Player player) {
+        player.removePotionEffect(PotionEffectType.BLINDNESS);
     }
 }
