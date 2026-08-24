@@ -2,6 +2,7 @@ package com.example.settingplugin.commands;
 
 import com.example.settingplugin.SettingPlugin;
 import com.example.settingplugin.PlayerSettings;
+import com.example.settingplugin.listeners.LoginListener;
 import com.example.settingplugin.utils.PasswordHasher;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -50,6 +51,10 @@ public class LoginCommand implements CommandExecutor {
         if (hash.equals(settings.getPasswordHash())) {
             settings.setLoggedIn(true);
             plugin.getSettingsManager().saveSettings(player.getUniqueId());
+
+            // Xóa hiệu ứng mù khi đăng nhập thành công
+            LoginListener.removeBlindness(player);
+
             player.sendMessage(ChatColor.GREEN + "Đăng nhập thành công!");
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
         } else {
