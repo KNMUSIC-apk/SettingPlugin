@@ -10,28 +10,79 @@ public class PlayerSettings {
 
     private String passwordHash = null;
     private boolean loggedIn = true;
+    private int loginFailCount = 0; // Số lần đăng nhập sai
 
-    public boolean isPvpEnabled() { return pvpEnabled; }
-    public void setPvpEnabled(boolean pvpEnabled) { this.pvpEnabled = pvpEnabled; }
+    // Getter và Setter cho từng thuộc tính
 
-    public boolean isVoidProtection() { return voidProtection; }
-    public void setVoidProtection(boolean voidProtection) { this.voidProtection = voidProtection; }
+    public boolean isPvpEnabled() {
+        return pvpEnabled;
+    }
 
-    public boolean isLoginEnabled() { return loginEnabled; }
-    public void setLoginEnabled(boolean loginEnabled) { this.loginEnabled = loginEnabled; }
+    public void setPvpEnabled(boolean pvpEnabled) {
+        this.pvpEnabled = pvpEnabled;
+    }
 
-    public boolean isMobSpawnProtection() { return mobSpawnProtection; }
-    public void setMobSpawnProtection(boolean mobSpawnProtection) { this.mobSpawnProtection = mobSpawnProtection; }
+    public boolean isVoidProtection() {
+        return voidProtection;
+    }
 
-    public boolean isAutoAcceptTpa() { return autoAcceptTpa; }
-    public void setAutoAcceptTpa(boolean autoAcceptTpa) { this.autoAcceptTpa = autoAcceptTpa; }
+    public void setVoidProtection(boolean voidProtection) {
+        this.voidProtection = voidProtection;
+    }
 
-    public boolean isAutoRespawn() { return autoRespawn; }
-    public void setAutoRespawn(boolean autoRespawn) { this.autoRespawn = autoRespawn; }
+    public boolean isLoginEnabled() {
+        return loginEnabled;
+    }
 
-    public String getPasswordHash() { return passwordHash; }
-    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+    public void setLoginEnabled(boolean loginEnabled) {
+        this.loginEnabled = loginEnabled;
+    }
 
-    public boolean isLoggedIn() { return loggedIn; }
-    public void setLoggedIn(boolean loggedIn) { this.loggedIn = loggedIn; }
+    public boolean isMobSpawnProtection() {
+        return mobSpawnProtection;
+    }
+
+    public void setMobSpawnProtection(boolean mobSpawnProtection) {
+        this.mobSpawnProtection = mobSpawnProtection;
+    }
+
+    public boolean isAutoAcceptTpa() {
+        return autoAcceptTpa;
+    }
+
+    public void setAutoAcceptTpa(boolean autoAcceptTpa) {
+        this.autoAcceptTpa = autoAcceptTpa;
+    }
+
+    public boolean isAutoRespawn() {
+        return autoRespawn;
+    }
+
+    public void setAutoRespawn(boolean autoRespawn) {
+        this.autoRespawn = autoRespawn;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public int getLoginFailCount() {
+        return loginFailCount;
+    }
+
+    public void setLoginFailCount(int loginFailCount) {
+        this.loginFailCount = loginFailCount;
+    }
 }
