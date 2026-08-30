@@ -41,6 +41,7 @@ public class SettingsManager {
                 settings.setAutoRespawn(dataConfig.getBoolean(path + "auto-respawn", false));
                 settings.setPasswordHash(dataConfig.getString(path + "password-hash", null));
                 settings.setLoggedIn(dataConfig.getBoolean(path + "logged-in", true));
+                settings.setLoginFailCount(dataConfig.getInt(path + "login-fail-count", 0)); // Đọc số lần sai
                 settingsMap.put(uuid, settings);
             }
         }
@@ -66,6 +67,7 @@ public class SettingsManager {
         dataConfig.set(path + "auto-respawn", settings.isAutoRespawn());
         dataConfig.set(path + "password-hash", settings.getPasswordHash());
         dataConfig.set(path + "logged-in", settings.isLoggedIn());
+        dataConfig.set(path + "login-fail-count", settings.getLoginFailCount()); // Lưu số lần sai
         saveDataFile();
     }
 
