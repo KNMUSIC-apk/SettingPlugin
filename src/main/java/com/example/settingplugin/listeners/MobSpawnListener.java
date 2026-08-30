@@ -18,7 +18,8 @@ public class MobSpawnListener implements Listener {
             EntityType.SKELETON,
             EntityType.SPIDER,
             EntityType.CREEPER,
-            EntityType.ZOMBIE
+            EntityType.ZOMBIE,
+            EntityType.PHANTOM // Thêm Phantom
     );
 
     // Bán kính chặn spawn: 50 block
@@ -27,8 +28,8 @@ public class MobSpawnListener implements Listener {
     private static final double CANCEL_RADIUS = 15.0;
     // Bán kính clear mob định kỳ: 15 block
     private static final double CLEAR_RADIUS = 15.0;
-    // Thời gian lặp clear: 30 giây = 600 ticks
-    private static final long CLEAR_INTERVAL = 600L;
+    // Thời gian lặp clear: 15 giây = 300 ticks
+    private static final long CLEAR_INTERVAL = 300L;
 
     public MobSpawnListener(SettingPlugin plugin) {
         this.plugin = plugin;
