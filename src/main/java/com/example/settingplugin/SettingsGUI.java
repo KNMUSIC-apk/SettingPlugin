@@ -96,21 +96,21 @@ public class SettingsGUI {
                 featureName = "Void Protection";
                 break;
             case 13:
-    newState = !settings.isLoginEnabled();
-    settings.setLoginEnabled(newState);
-    featureName = "Login System";
-    if (newState) {
-        settings.setLoggedIn(false);
-        player.sendMessage(ChatColor.YELLOW + "Bạn đã bật hệ thống đăng nhập. Hãy đăng ký bằng /register <mật khẩu> nếu chưa có.");
-        LoginListener.applyBlindness(player);
-        LoginListener.applyInvisibility(player); // Thêm dòng này
-    } else {
-        settings.setLoggedIn(true);
-        player.sendMessage(ChatColor.YELLOW + "Bạn đã tắt hệ thống đăng nhập.");
-        LoginListener.removeBlindness(player);
-        LoginListener.removeInvisibility(player); // Thêm dòng này
-    }
-    break;
+                newState = !settings.isLoginEnabled();
+                settings.setLoginEnabled(newState);
+                featureName = "Login System";
+                if (newState) {
+                settings.setLoggedIn(false);
+                player.sendMessage(ChatColor.YELLOW + "Bạn đã bật hệ thống đăng nhập. Hãy đăng ký bằng /register <mật khẩu> nếu chưa có.");
+                LoginListener.applyBlindness(player);
+                LoginListener.applyInvisibility(player); // Thêm dòng này
+                } else {
+                settings.setLoggedIn(true);
+                player.sendMessage(ChatColor.YELLOW + "Bạn đã tắt hệ thống đăng nhập.");
+                LoginListener.removeBlindness(player);
+                LoginListener.removeInvisibility(player); // Thêm dòng này
+                }
+                break;
             case 14:
                 newState = !settings.isMobSpawnProtection();
                 settings.setMobSpawnProtection(newState);
