@@ -60,8 +60,9 @@ public class LoginCommand implements CommandExecutor {
             settings.setLoginFailCount(0); // Reset số lần sai
             plugin.getSettingsManager().saveSettings(player.getUniqueId());
 
-            // Xóa hiệu ứng mù
+            // Xóa hiệu ứng mù và tàng hình
             LoginListener.removeBlindness(player);
+            LoginListener.removeInvisibility(player);
 
             player.sendMessage(ChatColor.GREEN + "Đăng nhập thành công!");
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
