@@ -50,10 +50,12 @@ public class RegisterCommand implements CommandExecutor {
         String hash = PasswordHasher.hash(password);
         settings.setPasswordHash(hash);
         settings.setLoggedIn(true);
+        settings.setLoginFailCount(0); // Reset số lần sai khi đăng ký thành công
         plugin.getSettingsManager().saveSettings(player.getUniqueId());
 
-        // Xóa hiệu ứng mù khi đăng ký thành công
+        // Xóa hiệu ứng mù và tàng hình khi đăng ký thành công
         LoginListener.removeBlindness(player);
+        LoginListener.removeInvisibility(player);
 
         player.sendMessage(ChatColor.GREEN + "Đăng ký thành công! Bạn đã đăng nhập.");
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
