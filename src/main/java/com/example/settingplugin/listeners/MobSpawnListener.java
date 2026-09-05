@@ -19,17 +19,17 @@ public class MobSpawnListener implements Listener {
             EntityType.SPIDER,
             EntityType.CREEPER,
             EntityType.ZOMBIE,
-            EntityType.PHANTOM // Thêm Phantom
+            EntityType.PHANTOM
     );
 
     // Bán kính chặn spawn: 50 block
     private static final double PROTECT_RADIUS = 50.0;
     // Bán kính kiểm tra người chơi không bật bảo vệ để vô hiệu hóa chặn spawn
     private static final double CANCEL_RADIUS = 15.0;
-    // Bán kính clear mob định kỳ: 15 block
-    private static final double CLEAR_RADIUS = 15.0;
-    // Thời gian lặp clear: 15 giây = 300 ticks
-    private static final long CLEAR_INTERVAL = 300L;
+    // Bán kính clear mob định kỳ: 50 block
+    private static final double CLEAR_RADIUS = 50.0;
+    // Thời gian lặp clear: 3 giây = 60 ticks
+    private static final long CLEAR_INTERVAL = 60L;
 
     public MobSpawnListener(SettingPlugin plugin) {
         this.plugin = plugin;
@@ -96,7 +96,7 @@ public class MobSpawnListener implements Listener {
             // Nếu có người không bật gần thì bỏ qua clear cho người này
             if (hasNearbyNonProtected) continue;
 
-            // Clear các mob chỉ định trong bán kính 15 block quanh người chơi
+            // Clear các mob chỉ định trong bán kính 50 block quanh người chơi
             World world = player.getWorld();
             for (Entity entity : world.getEntities()) {
                 // Chỉ xét các entity thuộc loại mob cần clear
